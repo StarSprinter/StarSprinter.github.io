@@ -661,8 +661,6 @@
                 .then((userCredential) => {
                     currentUser = userCredential.user;
                     authInitialized = true;
-                    document.getElementById('userIdDisplay').textContent = `🔐 Player ${currentUser.uid.slice(-4)}`;
-                    document.getElementById('userBadge').classList.remove('hidden');
                     console.log("Anonym angemeldet:", currentUser.uid);
                 })
                 .catch((error) => {
@@ -675,8 +673,6 @@
             if (user) {
                 currentUser = user;
                 authInitialized = true;
-                document.getElementById('userIdDisplay').textContent = `🔐 Player ${user.uid.slice(-4)}`;
-                document.getElementById('userBadge').classList.remove('hidden');
                 console.log("Auth state changed: user", user.uid);
             } else {
                 console.log("Auth state changed: no user");
