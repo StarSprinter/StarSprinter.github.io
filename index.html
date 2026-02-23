@@ -668,14 +668,9 @@
                     document.getElementById('userIdDisplay').textContent = `🔐 Player ${currentUser.uid.slice(-4)}`;
                     document.getElementById('userBadge').classList.remove('hidden');
                     console.log("Anonym angemeldet:", currentUser.uid);
-                    
-                    // Leaderboard nach Auth laden
-                    loadLeaderboard();
                 })
                 .catch((error) => {
                     console.error("Auth Fehler:", error);
-                    // Fallback: Trotzdem Leaderboard laden (nur lesend)
-                    loadLeaderboard();
                 });
         }
 
@@ -686,8 +681,9 @@
                 authInitialized = true;
                 document.getElementById('userIdDisplay').textContent = `🔐 Player ${user.uid.slice(-4)}`;
                 document.getElementById('userBadge').classList.remove('hidden');
+                console.log("Auth state changed: user", user.uid);
             } else {
-                // Nicht angemeldet - neu anmelden
+                console.log("Auth state changed: no user");
                 initAuth();
             }
         });
@@ -811,7 +807,10 @@
 
         // Load leaderboard from Firebase
         async function loadLeaderboard() {
+            console.log("loadLeaderboard wird ausgeführt");
+            
             if (!window.firebaseDatabase) {
+                console.log("Firebase nicht bereit, verwende localStorage");
                 loadLocalLeaderboard();
                 return;
             }
@@ -819,6 +818,8 @@
             try {
                 const db = window.firebaseDatabase;
                 const scoresRef = window.firebaseRef(db, 'scores');
+                
+                // WICHTIG: orderByChild('score') und limitToLast(100) für die Top 100
                 const topQuery = window.firebaseQuery(
                     scoresRef, 
                     window.firebaseOrderByChild('score'), 
@@ -830,10 +831,20 @@
                 if (snapshot.exists()) {
                     leaderboard = [];
                     snapshot.forEach((childSnapshot) => {
-                        leaderboard.push(childSnapshot.val());
+                        const entry = childSnapshot.val();
+                        // Jedes Kind einzeln hinzufügen
+                        leaderboard.push({
+                            name: entry.name,
+                            score: entry.score,
+                            date: entry.date
+                        });
                     });
+                    
+                    // Firebase liefert aufsteigend, also umdrehen für absteigend
                     leaderboard.reverse();
+                    console.log("Geladene Leaderboard-Einträge:", leaderboard.length);
                 } else {
+                    console.log("Keine Einträge in Firebase gefunden");
                     leaderboard = [];
                 }
                 
@@ -846,6 +857,7 @@
 
         // Local fallback
         function loadLocalLeaderboard() {
+            console.log("Lade lokales Leaderboard");
             const saved = localStorage.getItem('starCatcherLeaderboard');
             if (saved) {
                 try {
@@ -872,19 +884,21 @@
 
         // Add score to Firebase leaderboard
         async function addToLeaderboard(name, score) {
+            console.log("Füge Score hinzu:", name, score);
             const date = new Date().toISOString().split('T')[0];
             const newEntry = { 
                 name: name.toUpperCase(), 
-                score, 
-                date,
+                score: score, 
+                date: date,
                 userId: currentUser ? currentUser.uid : 'anonymous'
             };
             
-            if (window.firebaseDatabase && authInitialized) {
+            if (window.firebaseDatabase && authInitialized && currentUser) {
                 try {
                     const db = window.firebaseDatabase;
                     const scoresRef = window.firebaseRef(db, 'scores');
                     
+                    // Eindeutigen Schlüssel generieren
                     const newScoreRef = window.firebasePush(scoresRef);
                     await window.firebaseSet(newScoreRef, newEntry);
                     
@@ -895,9 +909,11 @@
                     saveLocalLeaderboard(name, score, date);
                 }
             } else {
+                console.log("Firebase nicht bereit, speichere lokal");
                 saveLocalLeaderboard(name, score, date);
             }
             
+            // Leaderboard neu laden
             await loadLeaderboard();
         }
 
@@ -911,6 +927,8 @@
 
         // Check if score is in top 100
         async function isTop100(score) {
+            console.log("Prüfe ob Score in Top 100:", score);
+            
             if (window.firebaseDatabase && authInitialized) {
                 try {
                     const db = window.firebaseDatabase;
@@ -923,27 +941,41 @@
                     
                     const snapshot = await window.firebaseGet(topQuery);
                     
-                    if (!snapshot.exists()) return true;
+                    if (!snapshot.exists()) {
+                        console.log("Keine Einträge vorhanden - Score kommt rein");
+                        return true;
+                    }
                     
+                    // Den niedrigsten Score der Top 100 finden
                     let lowestTopScore = 0;
+                    let count = 0;
                     snapshot.forEach((childSnapshot) => {
                         lowestTopScore = childSnapshot.val().score;
+                        count++;
                     });
+                    
+                    console.log(`Top 100 hat ${count} Einträge, niedrigster Score: ${lowestTopScore}`);
+                    
+                    if (count < 100) {
+                        console.log("Weniger als 100 Einträge - Score kommt rein");
+                        return true;
+                    }
                     
                     return score > lowestTopScore;
                 } catch (error) {
                     console.error("Fehler beim Prüfen von Firebase:", error);
                     if (leaderboard.length < CONFIG.maxLeaderboardEntries) return true;
-                    return score > leaderboard[leaderboard.length - 1]?.score || 0;
+                    return score > (leaderboard[leaderboard.length - 1]?.score || 0);
                 }
             } else {
                 if (leaderboard.length < CONFIG.maxLeaderboardEntries) return true;
-                return score > leaderboard[leaderboard.length - 1]?.score || 0;
+                return score > (leaderboard[leaderboard.length - 1]?.score || 0);
             }
         }
 
         // Render leaderboard
         function renderLeaderboard() {
+            console.log("Rendere Leaderboard mit", leaderboard.length, "Einträgen");
             const tbody = document.getElementById('leaderboardBody');
             if (!tbody) return;
             
@@ -953,7 +985,7 @@
                 const emptyRow = document.createElement('tr');
                 emptyRow.innerHTML = `
                     <td colspan="4" class="text-center py-8" style="color: var(--muted);">
-                        Loading scores...<br>
+                        No scores yet...<br>
                         <span class="text-xs">Be the first to claim a spot!</span>
                     </td>
                 `;
@@ -1000,12 +1032,14 @@
 
         // Open leaderboard modal
         function openLeaderboard() {
+            console.log("Öffne Leaderboard");
             document.getElementById('leaderboardModal').classList.remove('hidden');
             loadLeaderboard();
         }
 
         // Close leaderboard modal
         function closeLeaderboard() {
+            console.log("Schließe Leaderboard");
             document.getElementById('leaderboardModal').classList.add('hidden');
             document.getElementById('nameInputModal').classList.add('hidden');
             document.getElementById('leaderboardTableContainer').classList.remove('hidden');
@@ -1043,6 +1077,7 @@
 
         // Show name input for new high score
         function showNameInput(score) {
+            console.log("Zeige Name Eingabe für Score:", score);
             document.getElementById('leaderboardTableContainer').classList.add('hidden');
             document.getElementById('nameInputModal').classList.remove('hidden');
             document.getElementById('playerNameInput').value = '';
@@ -1543,7 +1578,6 @@
             openLeaderboard();
         });
 
-        // NEU: Close Button mit Event Listener (statt onclick im HTML)
         if (closeLeaderboardBtn) {
             closeLeaderboardBtn.addEventListener('click', closeLeaderboard);
         }
@@ -1551,12 +1585,10 @@
         submitNameBtn.addEventListener('click', () => {
             const name = playerNameInput.value.trim().toUpperCase() || 'AAA';
             addToLeaderboard(name.substring(0, 3), window.pendingScore);
-            closeLeaderboard();
         });
 
         skipNameBtn.addEventListener('click', () => {
             addToLeaderboard('???', window.pendingScore);
-            closeLeaderboard();
         });
 
         document.addEventListener('keydown', (e) => {
