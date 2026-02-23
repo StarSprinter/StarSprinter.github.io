@@ -230,198 +230,6 @@
             fill: var(--fg);
         }
 
-        /* Highscore Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 16px;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a3a 0%, #0a0a1a 100%);
-            border: 2px solid var(--accent);
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 60px var(--accent-glow);
-        }
-
-        /* Stylischer Scrollbalken für die Top 100 Liste */
-        .modal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .modal-content::-webkit-scrollbar-track {
-            background: rgba(10, 10, 26, 0.5);
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-
-        .modal-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, var(--accent) 0%, #ffaa00 100%);
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        .modal-content::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #ffaa00 0%, var(--accent) 100%);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        /* Für Firefox */
-        .modal-content {
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) rgba(10, 10, 26, 0.5);
-        }
-
-        .highscore-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .highscore-table th {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            padding: 12px 8px;
-            border-bottom: 2px solid var(--accent);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .highscore-table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid var(--border);
-            font-size: 1rem;
-        }
-
-        .highscore-table tr:hover {
-            background: rgba(255, 215, 0, 0.1);
-        }
-
-        .rank-1 {
-            color: var(--accent);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .rank-2 {
-            color: #c0c0c0;
-        }
-
-        .rank-3 {
-            color: #cd7f32;
-        }
-
-        .name-input {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--accent);
-            border-radius: 8px;
-            color: var(--fg);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            padding: 12px 20px;
-            text-align: center;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            max-width: 200px;
-        }
-
-        .name-input:focus {
-            outline: none;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .leaderboard-badge {
-            background: linear-gradient(135deg, var(--accent) 0%, #ffaa00 100%);
-            color: var(--bg);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            display: inline-block;
-        }
-
-        .new-entry {
-            animation: highlightNew 2s ease-out;
-        }
-
-        @keyframes highlightNew {
-            0%, 50% {
-                background: rgba(255, 215, 0, 0.3);
-            }
-            100% {
-                background: transparent;
-            }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 110;
-        }
-
-        .close-btn:hover {
-            color: var(--accent);
-            transform: scale(1.1);
-        }
-
-        .view-leaderboard-btn {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-left: 8px;
-        }
-
-        .view-leaderboard-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        /* Anonymous User Badge */
-        .user-badge {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--card);
-            border: 1px solid var(--accent);
-            border-radius: 30px;
-            padding: 8px 16px;
-            font-size: 0.8rem;
-            color: var(--accent);
-            z-index: 50;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -440,9 +248,6 @@
                 <h1 class="font-display text-4xl md:text-6xl font-black glow-text" style="color: var(--accent);">
                     STAR SPRINTER
                 </h1>
-                <button id="viewLeaderboardBtn" class="view-leaderboard-btn" title="View Top 100 Players">
-                    TOP 100
-                </button>
             </div>
             <p class="text-lg" style="color: var(--muted);">Catch the stars, avoid the meteors</p>
         </header>
@@ -565,122 +370,7 @@
         </footer>
     </div>
 
-    <!-- Leaderboard Modal (hidden by default) -->
-    <div id="leaderboardModal" class="modal-overlay hidden">
-        <div class="modal-content relative">
-            <button class="close-btn" id="closeLeaderboardBtn">&times;</button>
-            
-            <div class="text-center mb-8">
-                <h2 class="font-display text-3xl font-bold mb-2 glow-text" style="color: var(--accent);">
-                    TOP 100 PLAYERS
-                </h2>
-                <p class="text-sm" style="color: var(--muted);">The fastest star catchers in the galaxy</p>
-            </div>
-
-            <!-- Name Input Modal (appears when making top 100) -->
-            <div id="nameInputModal" class="hidden">
-                <div class="text-center mb-6">
-                    <div class="inline-block p-4 rounded-full mb-4" style="background: var(--accent-glow);">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--accent)">
-                            <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-2xl font-bold mb-2" style="color: var(--accent);">NEW HIGH SCORE!</h3>
-                    <p class="mb-4" style="color: var(--muted);">You made it into the Top 100!</p>
-                    <p class="mb-2" style="color: var(--fg);">Enter your name (3 letters):</p>
-                    <input type="text" id="playerNameInput" class="name-input" maxlength="3" placeholder="AAA" autocomplete="off">
-                    <div class="flex gap-4 justify-center mt-6">
-                        <button id="submitNameBtn" class="btn-game text-sm py-2 px-6">SUBMIT</button>
-                        <button id="skipNameBtn" class="btn-game text-sm py-2 px-6" style="background: var(--muted);">SKIP</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Leaderboard Table -->
-            <div id="leaderboardTableContainer">
-                <table class="highscore-table">
-                    <thead>
-                        <tr>
-                            <th>RANK</th>
-                            <th>PLAYER</th>
-                            <th>SCORE</th>
-                            <th>DATE</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboardBody">
-                        <!-- Will be filled by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-center mt-6">
-                <p class="text-xs" style="color: var(--muted);">* Only the top 100 scores are kept</p>
-            </div>
-        </div>
-    </div>
-
-    <script type="module">
-        // ==================== FIREBASE INIT ====================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, query, orderByChild, limitToLast, get, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-        // Firebase configuration - DEINE ECHTEN DATEN
-        const firebaseConfig = {
-            apiKey: "AIzaSyCNSIYsZKr0pAg-L_-VG5Ml5vFV-OYY2hk",
-            authDomain: "starsprinter-63ae5.firebaseapp.com",
-            databaseURL: "https://starsprinter-63ae5-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "starsprinter-63ae5",
-            storageBucket: "starsprinter-63ae5.firebasestorage.app",
-            messagingSenderId: "675171141967",
-            appId: "1:675171141967:web:3478c9c375bfb1602cdd3a"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const auth = getAuth(app);
-        
-        // Global verfügbar machen
-        window.firebaseDatabase = database;
-        window.firebaseRef = ref;
-        window.firebaseSet = set;
-        window.firebaseQuery = query;
-        window.firebaseOrderByChild = orderByChild;
-        window.firebaseLimitToLast = limitToLast;
-        window.firebaseGet = get;
-        window.firebasePush = push;
-        window.firebaseAuth = auth;
-
-        // ==================== ANONYMOUS AUTH ====================
-        let currentUser = null;
-        let authInitialized = false;
-
-        // Anonym anmelden
-        function initAuth() {
-            signInAnonymously(auth)
-                .then((userCredential) => {
-                    currentUser = userCredential.user;
-                    authInitialized = true;
-                    console.log("Anonym angemeldet:", currentUser.uid);
-                })
-                .catch((error) => {
-                    console.error("Auth Fehler:", error);
-                });
-        }
-
-        // Auth Status überwachen
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-                authInitialized = true;
-                console.log("Auth state changed: user", user.uid);
-            } else {
-                console.log("Auth state changed: no user");
-                initAuth();
-            }
-        });
-
+    <script>
         // ==================== AUDIO SYSTEM ====================
         let audioCtx = null;
         let soundEnabled = true;
@@ -758,15 +448,6 @@
             setTimeout(() => playTone(200, 'triangle', 0.8, 0.15), 450);
         }
 
-        function playNewHighScoreSound() {
-            if (!soundEnabled || !audioCtx) return;
-            
-            playTone(523, 'sine', 0.2, 0.3);
-            setTimeout(() => playTone(659, 'sine', 0.2, 0.3), 150);
-            setTimeout(() => playTone(784, 'sine', 0.4, 0.3), 300);
-            setTimeout(() => playTone(1047, 'sine', 0.6, 0.4), 500);
-        }
-
         // ==================== GAME CONFIGURATION ====================
         const CONFIG = {
             starSpawnRate: 1500,
@@ -776,8 +457,7 @@
             comboTimeout: 2000,
             maxLives: 3,
             difficultyInterval: 10000,
-            restartDelay: 3000,
-            maxLeaderboardEntries: 100
+            restartDelay: 3000
         };
 
         // Game State
@@ -792,292 +472,6 @@
             mouseX: 400,
             mouseY: 250
         };
-
-        // Leaderboard
-        let leaderboard = [];
-        
-        // ==================== FIREBASE LEADERBOARD FUNCTIONS ====================
-
-        // Load leaderboard from Firebase
-        async function loadLeaderboard() {
-            console.log("loadLeaderboard wird ausgeführt");
-            
-            if (!window.firebaseDatabase) {
-                console.log("Firebase nicht bereit, verwende localStorage");
-                loadLocalLeaderboard();
-                return;
-            }
-            
-            try {
-                const db = window.firebaseDatabase;
-                const scoresRef = window.firebaseRef(db, 'scores');
-                
-                // WICHTIG: orderByChild('score') und limitToLast(100) für die Top 100
-                const topQuery = window.firebaseQuery(
-                    scoresRef, 
-                    window.firebaseOrderByChild('score'), 
-                    window.firebaseLimitToLast(100)
-                );
-                
-                const snapshot = await window.firebaseGet(topQuery);
-                
-                if (snapshot.exists()) {
-                    leaderboard = [];
-                    snapshot.forEach((childSnapshot) => {
-                        const entry = childSnapshot.val();
-                        // Jedes Kind einzeln hinzufügen
-                        leaderboard.push({
-                            name: entry.name,
-                            score: entry.score,
-                            date: entry.date
-                        });
-                    });
-                    
-                    // Firebase liefert aufsteigend, also umdrehen für absteigend
-                    leaderboard.reverse();
-                    console.log("Geladene Leaderboard-Einträge:", leaderboard.length);
-                } else {
-                    console.log("Keine Einträge in Firebase gefunden");
-                    leaderboard = [];
-                }
-                
-                renderLeaderboard();
-            } catch (error) {
-                console.error("Fehler beim Laden von Firebase:", error);
-                loadLocalLeaderboard();
-            }
-        }
-
-        // Local fallback
-        function loadLocalLeaderboard() {
-            console.log("Lade lokales Leaderboard");
-            const saved = localStorage.getItem('starCatcherLeaderboard');
-            if (saved) {
-                try {
-                    leaderboard = JSON.parse(saved);
-                } catch (e) {
-                    leaderboard = [];
-                }
-            }
-            
-            if (leaderboard.length === 0) {
-                leaderboard = [
-                    { name: "AAA", score: 5000, date: "2026-02-20" },
-                    { name: "BBB", score: 4500, date: "2026-02-20" },
-                    { name: "CCC", score: 4000, date: "2026-02-21" },
-                    { name: "DDD", score: 3500, date: "2026-02-21" },
-                    { name: "EEE", score: 3000, date: "2026-02-22" }
-                ];
-            }
-            
-            leaderboard.sort((a, b) => b.score - a.score);
-            leaderboard = leaderboard.slice(0, CONFIG.maxLeaderboardEntries);
-            renderLeaderboard();
-        }
-
-        // Add score to Firebase leaderboard
-        async function addToLeaderboard(name, score) {
-            console.log("Füge Score hinzu:", name, score);
-            const date = new Date().toISOString().split('T')[0];
-            const newEntry = { 
-                name: name.toUpperCase(), 
-                score: score, 
-                date: date,
-                userId: currentUser ? currentUser.uid : 'anonymous'
-            };
-            
-            if (window.firebaseDatabase && authInitialized && currentUser) {
-                try {
-                    const db = window.firebaseDatabase;
-                    const scoresRef = window.firebaseRef(db, 'scores');
-                    
-                    // Eindeutigen Schlüssel generieren
-                    const newScoreRef = window.firebasePush(scoresRef);
-                    await window.firebaseSet(newScoreRef, newEntry);
-                    
-                    console.log("Score erfolgreich zu Firebase hinzugefügt!");
-                    
-                } catch (error) {
-                    console.error("Fehler beim Speichern in Firebase:", error);
-                    saveLocalLeaderboard(name, score, date);
-                }
-            } else {
-                console.log("Firebase nicht bereit, speichere lokal");
-                saveLocalLeaderboard(name, score, date);
-            }
-            
-            // Leaderboard neu laden
-            await loadLeaderboard();
-        }
-
-        // Local fallback fürs Speichern
-        function saveLocalLeaderboard(name, score, date) {
-            leaderboard.push({ name: name.toUpperCase(), score, date, newEntry: true });
-            leaderboard.sort((a, b) => b.score - a.score);
-            leaderboard = leaderboard.slice(0, CONFIG.maxLeaderboardEntries);
-            localStorage.setItem('starCatcherLeaderboard', JSON.stringify(leaderboard));
-        }
-
-        // Check if score is in top 100
-        async function isTop100(score) {
-            console.log("Prüfe ob Score in Top 100:", score);
-            
-            if (window.firebaseDatabase && authInitialized) {
-                try {
-                    const db = window.firebaseDatabase;
-                    const scoresRef = window.firebaseRef(db, 'scores');
-                    const topQuery = window.firebaseQuery(
-                        scoresRef, 
-                        window.firebaseOrderByChild('score'), 
-                        window.firebaseLimitToLast(100)
-                    );
-                    
-                    const snapshot = await window.firebaseGet(topQuery);
-                    
-                    if (!snapshot.exists()) {
-                        console.log("Keine Einträge vorhanden - Score kommt rein");
-                        return true;
-                    }
-                    
-                    // Den niedrigsten Score der Top 100 finden
-                    let lowestTopScore = 0;
-                    let count = 0;
-                    snapshot.forEach((childSnapshot) => {
-                        lowestTopScore = childSnapshot.val().score;
-                        count++;
-                    });
-                    
-                    console.log(`Top 100 hat ${count} Einträge, niedrigster Score: ${lowestTopScore}`);
-                    
-                    if (count < 100) {
-                        console.log("Weniger als 100 Einträge - Score kommt rein");
-                        return true;
-                    }
-                    
-                    return score > lowestTopScore;
-                } catch (error) {
-                    console.error("Fehler beim Prüfen von Firebase:", error);
-                    if (leaderboard.length < CONFIG.maxLeaderboardEntries) return true;
-                    return score > (leaderboard[leaderboard.length - 1]?.score || 0);
-                }
-            } else {
-                if (leaderboard.length < CONFIG.maxLeaderboardEntries) return true;
-                return score > (leaderboard[leaderboard.length - 1]?.score || 0);
-            }
-        }
-
-        // Render leaderboard
-        function renderLeaderboard() {
-            console.log("Rendere Leaderboard mit", leaderboard.length, "Einträgen");
-            const tbody = document.getElementById('leaderboardBody');
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            if (leaderboard.length === 0) {
-                const emptyRow = document.createElement('tr');
-                emptyRow.innerHTML = `
-                    <td colspan="4" class="text-center py-8" style="color: var(--muted);">
-                        No scores yet...<br>
-                        <span class="text-xs">Be the first to claim a spot!</span>
-                    </td>
-                `;
-                tbody.appendChild(emptyRow);
-                return;
-            }
-            
-            leaderboard.forEach((entry, index) => {
-                const row = document.createElement('tr');
-                
-                let rankClass = '';
-                if (index === 0) rankClass = 'rank-1';
-                else if (index === 1) rankClass = 'rank-2';
-                else if (index === 2) rankClass = 'rank-3';
-                
-                row.innerHTML = `
-                    <td class="${rankClass}">#${index + 1}</td>
-                    <td class="${rankClass}">${entry.name}</td>
-                    <td class="${rankClass}">${entry.score.toLocaleString()}</td>
-                    <td style="color: var(--muted); font-size: 0.8rem;">${entry.date}</td>
-                `;
-                
-                if (entry.newEntry) {
-                    row.classList.add('new-entry');
-                    setTimeout(() => {
-                        entry.newEntry = false;
-                    }, 2000);
-                }
-                
-                tbody.appendChild(row);
-            });
-            
-            if (leaderboard.length < CONFIG.maxLeaderboardEntries) {
-                const emptyRow = document.createElement('tr');
-                emptyRow.innerHTML = `
-                    <td colspan="4" class="text-center py-8" style="color: var(--muted);">
-                        ${CONFIG.maxLeaderboardEntries - leaderboard.length} spots remaining<br>
-                        <span class="text-xs">Can you claim one?</span>
-                    </td>
-                `;
-                tbody.appendChild(emptyRow);
-            }
-        }
-
-        // Open leaderboard modal
-        function openLeaderboard() {
-            console.log("Öffne Leaderboard");
-            document.getElementById('leaderboardModal').classList.remove('hidden');
-            loadLeaderboard();
-        }
-
-        // Close leaderboard modal
-        function closeLeaderboard() {
-            console.log("Schließe Leaderboard");
-            document.getElementById('leaderboardModal').classList.add('hidden');
-            document.getElementById('nameInputModal').classList.add('hidden');
-            document.getElementById('leaderboardTableContainer').classList.remove('hidden');
-            
-            if (!gameState.isPlaying && window.pendingScore !== undefined) {
-                gameOverScreen.classList.remove('hidden');
-                finalScoreEl.textContent = window.pendingScore;
-                
-                if (window.pendingScore > gameState.highScore) {
-                    highScoreText.textContent = 'New Personal Best!';
-                    highScoreText.style.color = 'var(--success)';
-                } else {
-                    highScoreText.textContent = `Personal Best: ${gameState.highScore}`;
-                    highScoreText.style.color = 'var(--muted)';
-                }
-                
-                restartBtn.disabled = true;
-                countdownOverlay.classList.remove('hidden');
-                
-                let countdown = 3;
-                countdownNumber.textContent = countdown;
-                
-                const countdownInterval = setInterval(() => {
-                    countdown--;
-                    countdownNumber.textContent = countdown;
-                    
-                    if (countdown <= 0) {
-                        clearInterval(countdownInterval);
-                        countdownOverlay.classList.add('hidden');
-                        restartBtn.disabled = false;
-                    }
-                }, 1000);
-            }
-        }
-
-        // Show name input for new high score
-        function showNameInput(score) {
-            console.log("Zeige Name Eingabe für Score:", score);
-            document.getElementById('leaderboardTableContainer').classList.add('hidden');
-            document.getElementById('nameInputModal').classList.remove('hidden');
-            document.getElementById('playerNameInput').value = '';
-            document.getElementById('playerNameInput').focus();
-            
-            window.pendingScore = score;
-        }
 
         // Game Objects
         let stars = [];
@@ -1108,11 +502,6 @@
         const soundToggle = document.getElementById('soundToggle');
         const soundOnIcon = document.getElementById('soundOnIcon');
         const soundOffIcon = document.getElementById('soundOffIcon');
-        const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
-        const submitNameBtn = document.getElementById('submitNameBtn');
-        const skipNameBtn = document.getElementById('skipNameBtn');
-        const playerNameInput = document.getElementById('playerNameInput');
-        const closeLeaderboardBtn = document.getElementById('closeLeaderboardBtn');
 
         // Initialize background stars
         function initBackgroundStars() {
@@ -1488,53 +877,41 @@
         }
 
         // End game
-        async function endGame() {
+        function endGame() {
             gameState.isPlaying = false;
             playGameOverSound();
             
             const finalScore = gameState.score;
-            window.pendingScore = finalScore;
             
             if (finalScore > gameState.highScore) {
                 gameState.highScore = finalScore;
                 localStorage.setItem('starCatcherHighScore', gameState.highScore.toString());
+                highScoreText.textContent = 'New Personal Best!';
+                highScoreText.style.color = 'var(--success)';
+            } else {
+                highScoreText.textContent = `Personal Best: ${gameState.highScore}`;
+                highScoreText.style.color = 'var(--muted)';
             }
             
-            const top100 = await isTop100(finalScore);
+            finalScoreEl.textContent = finalScore;
+            gameOverScreen.classList.remove('hidden');
             
-            if (top100) {
-                playNewHighScoreSound();
-                openLeaderboard();
-                showNameInput(finalScore);
-            } else {
-                finalScoreEl.textContent = finalScore;
-                gameOverScreen.classList.remove('hidden');
-                
-                if (finalScore > gameState.highScore) {
-                    highScoreText.textContent = 'New Personal Best!';
-                    highScoreText.style.color = 'var(--success)';
-                } else {
-                    highScoreText.textContent = `Personal Best: ${gameState.highScore}`;
-                    highScoreText.style.color = 'var(--muted)';
-                }
-                
-                restartBtn.disabled = true;
-                countdownOverlay.classList.remove('hidden');
-                
-                let countdown = 3;
+            restartBtn.disabled = true;
+            countdownOverlay.classList.remove('hidden');
+            
+            let countdown = 3;
+            countdownNumber.textContent = countdown;
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
                 countdownNumber.textContent = countdown;
                 
-                const countdownInterval = setInterval(() => {
-                    countdown--;
-                    countdownNumber.textContent = countdown;
-                    
-                    if (countdown <= 0) {
-                        clearInterval(countdownInterval);
-                        countdownOverlay.classList.add('hidden');
-                        restartBtn.disabled = false;
-                    }
-                }, 1000);
-            }
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownOverlay.classList.add('hidden');
+                    restartBtn.disabled = false;
+                }
+            }, 1000);
             
             updateDisplays();
         }
@@ -1561,47 +938,14 @@
         startBtn.addEventListener('click', startGame);
         restartBtn.addEventListener('click', startGame);
         
+        // Sound toggle
         soundToggle.addEventListener('click', () => {
             soundEnabled = !soundEnabled;
             soundOnIcon.style.display = soundEnabled ? 'block' : 'none';
             soundOffIcon.style.display = soundEnabled ? 'none' : 'block';
         });
 
-        viewLeaderboardBtn.addEventListener('click', () => {
-            openLeaderboard();
-        });
-
-        if (closeLeaderboardBtn) {
-            closeLeaderboardBtn.addEventListener('click', closeLeaderboard);
-        }
-
-        submitNameBtn.addEventListener('click', async () => {
-    // Button deaktivieren
-    submitNameBtn.disabled = true;
-    skipNameBtn.disabled = true;
-    
-    const name = playerNameInput.value.trim().toUpperCase() || 'AAA';
-    await addToLeaderboard(name.substring(0, 3), window.pendingScore);
-    closeLeaderboard();
-    
-    // Nach dem Schließen wieder aktivieren (fürs nächste Mal)
-    submitNameBtn.disabled = false;
-    skipNameBtn.disabled = false;
-});
-
-skipNameBtn.addEventListener('click', async () => {
-    // Button deaktivieren
-    submitNameBtn.disabled = true;
-    skipNameBtn.disabled = true;
-    
-    await addToLeaderboard('???', window.pendingScore);
-    closeLeaderboard();
-    
-    // Nach dem Schließen wieder aktivieren
-    submitNameBtn.disabled = false;
-    skipNameBtn.disabled = false;
-});
-
+        // Keyboard support
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'Enter') {
                 if (!gameState.isPlaying && !restartBtn.disabled) {
@@ -1609,14 +953,9 @@ skipNameBtn.addEventListener('click', async () => {
                     startGame();
                 }
             }
-            
-            if (e.code === 'Escape') {
-                if (!document.getElementById('leaderboardModal').classList.contains('hidden')) {
-                    closeLeaderboard();
-                }
-            }
         });
 
+        // Handle resize
         window.addEventListener('resize', () => {
             canvasRect = canvas.getBoundingClientRect();
             scaleX = canvas.width / canvasRect.width;
@@ -1624,7 +963,6 @@ skipNameBtn.addEventListener('click', async () => {
         });
 
         // Initialize
-        initAuth(); // Startet anonyme Authentifizierung
         initBackgroundStars();
         renderLives();
         updateDisplays();
