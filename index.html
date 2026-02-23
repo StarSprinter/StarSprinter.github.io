@@ -365,7 +365,7 @@
         <!-- Footer -->
         <footer class="max-w-4xl mx-auto mt-6 text-center slide-up" style="animation-delay: 0.5s;">
             <p class="text-xs" style="color: var(--muted); font-family: 'Orbitron', sans-serif;">
-                StarSprinter.com © 2026 – All Rights Reserved
+                StarSprinter.com © 2026
             </p>
         </footer>
     </div>
@@ -466,7 +466,7 @@
             score: 0,
             combo: 1,
             lives: CONFIG.maxLives,
-            highScore: parseInt(localStorage.getItem('starCatcherHighScore') || '0'),
+gameState.highScore = 0; // wird nur während der Sitzung im Speicher gehalten
             lastStarCatch: 0,
             difficulty: 1,
             mouseX: 400,
@@ -882,16 +882,6 @@
             playGameOverSound();
             
             const finalScore = gameState.score;
-            
-            if (finalScore > gameState.highScore) {
-                gameState.highScore = finalScore;
-                localStorage.setItem('starCatcherHighScore', gameState.highScore.toString());
-                highScoreText.textContent = 'New Personal Best!';
-                highScoreText.style.color = 'var(--success)';
-            } else {
-                highScoreText.textContent = `Personal Best: ${gameState.highScore}`;
-                highScoreText.style.color = 'var(--muted)';
-            }
             
             finalScoreEl.textContent = finalScore;
             gameOverScreen.classList.remove('hidden');
