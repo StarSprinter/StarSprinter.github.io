@@ -378,6 +378,7 @@
             font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            z-index: 110;
         }
 
         .close-btn:hover {
@@ -570,7 +571,7 @@
     <!-- Leaderboard Modal (hidden by default) -->
     <div id="leaderboardModal" class="modal-overlay hidden">
         <div class="modal-content relative">
-            <button class="close-btn" onclick="closeLeaderboard()">&times;</button>
+            <button class="close-btn" id="closeLeaderboardBtn">&times;</button>
             
             <div class="text-center mb-8">
                 <h2 class="font-display text-3xl font-bold mb-2 glow-text" style="color: var(--accent);">
@@ -1083,6 +1084,7 @@
         const submitNameBtn = document.getElementById('submitNameBtn');
         const skipNameBtn = document.getElementById('skipNameBtn');
         const playerNameInput = document.getElementById('playerNameInput');
+        const closeLeaderboardBtn = document.getElementById('closeLeaderboardBtn');
 
         // Initialize background stars
         function initBackgroundStars() {
@@ -1540,6 +1542,11 @@
         viewLeaderboardBtn.addEventListener('click', () => {
             openLeaderboard();
         });
+
+        // NEU: Close Button mit Event Listener (statt onclick im HTML)
+        if (closeLeaderboardBtn) {
+            closeLeaderboardBtn.addEventListener('click', closeLeaderboard);
+        }
 
         submitNameBtn.addEventListener('click', () => {
             const name = playerNameInput.value.trim().toUpperCase() || 'AAA';
