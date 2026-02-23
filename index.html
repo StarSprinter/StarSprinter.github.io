@@ -1582,14 +1582,32 @@
             closeLeaderboardBtn.addEventListener('click', closeLeaderboard);
         }
 
-        submitNameBtn.addEventListener('click', () => {
-            const name = playerNameInput.value.trim().toUpperCase() || 'AAA';
-            addToLeaderboard(name.substring(0, 3), window.pendingScore);
-        });
+        submitNameBtn.addEventListener('click', async () => {
+    // Button deaktivieren
+    submitNameBtn.disabled = true;
+    skipNameBtn.disabled = true;
+    
+    const name = playerNameInput.value.trim().toUpperCase() || 'AAA';
+    await addToLeaderboard(name.substring(0, 3), window.pendingScore);
+    closeLeaderboard();
+    
+    // Nach dem Schließen wieder aktivieren (fürs nächste Mal)
+    submitNameBtn.disabled = false;
+    skipNameBtn.disabled = false;
+});
 
-        skipNameBtn.addEventListener('click', () => {
-            addToLeaderboard('???', window.pendingScore);
-        });
+skipNameBtn.addEventListener('click', async () => {
+    // Button deaktivieren
+    submitNameBtn.disabled = true;
+    skipNameBtn.disabled = true;
+    
+    await addToLeaderboard('???', window.pendingScore);
+    closeLeaderboard();
+    
+    // Nach dem Schließen wieder aktivieren
+    submitNameBtn.disabled = false;
+    skipNameBtn.disabled = false;
+});
 
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'Enter') {
