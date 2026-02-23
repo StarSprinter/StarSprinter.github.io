@@ -559,13 +559,48 @@
 
 <!-- Footer -->
 <footer class="max-w-4xl mx-auto mt-6 text-center slide-up" style="animation-delay: 0.5s;">
-    <!-- NEU: Werbelink -->
-    <div class="mb-3">
-        <a href="https://www.topcashback.de/ref/merlin321" target="_blank" class="text-yellow-500 hover:text-yellow-400 text-sm transition-colors">
-            🔥 TOPCASHBACK 10€ sammeln + 10€ geschenkt! 🔥
+    <!-- NEU: Werbelink mit schwebenden Sternen wie im Startbildschirm -->
+    <div class="mb-3 relative">
+        <!-- Linke schwebende Sterne -->
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 -ml-8 floating" style="animation-delay: 0.2s;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--accent)" opacity="0.6">
+                <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
+            </svg>
+        </div>
+        
+        <!-- Hauptlink -->
+        <a href="https://www.topcashback.de/ref/merlin321" target="_blank" 
+           class="text-yellow-500 hover:text-yellow-400 text-sm transition-colors inline-flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-yellow-500/10">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="floating" style="animation-delay: 0.1s;">
+                <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
+            </svg>
+            <span class="font-medium">TOPCASHBACK 10€ sammeln + 10€ geschenkt!</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="floating" style="animation-delay: 0.4s;">
+                <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
+            </svg>
         </a>
+        
+        <!-- Rechte schwebende Sterne -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 -mr-8 floating" style="animation-delay: 0.6s;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--accent)" opacity="0.6">
+                <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
+            </svg>
+        </div>
     </div>
-    <p class="text-xs" style="color: var(--muted); font-family: 'Orbitron', sans-serif;">
+    
+    <!-- Kleine schwebende Sterne im Hintergrund (wie im Startbildschirm) -->
+    <div class="absolute left-1/4 -bottom-2 floating opacity-30" style="animation-delay: 0.3s;">
+        <svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)">
+            <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
+        </svg>
+    </div>
+    <div class="absolute right-1/4 -bottom-2 floating opacity-30" style="animation-delay: 0.7s;">
+        <svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)">
+            <polygon points="12,2 15,9 22,9 17,14 19,22 12,17 5,22 7,14 2,9 9,9"/>
+        </svg>
+    </div>
+    
+    <p class="text-xs relative z-10" style="color: var(--muted); font-family: 'Orbitron', sans-serif;">
         StarSprinter.com © 2026 – All Rights Reserved
     </p>
 </footer>
