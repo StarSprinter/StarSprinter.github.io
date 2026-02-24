@@ -142,6 +142,14 @@
             width: 100%;
         }
         
+        .w-10 {
+            width: 2.5rem;
+        }
+        
+        .h-10 {
+            height: 2.5rem;
+        }
+        
         .flex-col {
             flex-direction: column;
         }
@@ -662,7 +670,7 @@
     <script>
         // ==================== AUDIO SYSTEM ====================
         let audioCtx = null;
-        let soundEnabled = true;
+        let soundEnabled = true; // Immer mit Sound starten, kein localStorage
 
         function initAudio() {
             if (!audioCtx) {
@@ -1224,18 +1232,8 @@
             soundEnabled = !soundEnabled;
             soundOnIcon.style.display = soundEnabled ? 'block' : 'none';
             soundOffIcon.style.display = soundEnabled ? 'none' : 'block';
-            
-            // Sound-Einstellung lokal speichern (optional, aber anonym)
-            localStorage.setItem('soundEnabled', soundEnabled);
+            // Kein localStorage mehr!
         });
-
-        // Sound-Einstellung laden
-        const savedSound = localStorage.getItem('soundEnabled');
-        if (savedSound !== null) {
-            soundEnabled = savedSound === 'true';
-            soundOnIcon.style.display = soundEnabled ? 'block' : 'none';
-            soundOffIcon.style.display = soundEnabled ? 'none' : 'block';
-        }
 
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'Enter') {
@@ -1256,6 +1254,11 @@
         initBackgroundStars();
         renderLives();
         updateDisplays();
+        
+        // WICHTIG: Sicherstellen, dass Startbildschirm sichtbar ist
+        startScreen.classList.remove('hidden');
+        gameOverScreen.classList.add('hidden');
+        
         gameLoop();
     </script>
 </body>
