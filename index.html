@@ -57,6 +57,7 @@
                 0 0 60px rgba(255, 215, 0, 0.1),
                 inset 0 0 60px rgba(0, 0, 0, 0.5);
             cursor: none;
+            transition: opacity 0.3s ease;
         }
 
         .glow-text {
@@ -154,36 +155,6 @@
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
             border: 1px solid var(--border);
             border-radius: 16px;
-        }
-
-        .countdown-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 20;
-            backdrop-filter: blur(4px);
-        }
-
-        .countdown-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            color: var(--accent);
-            text-shadow: 0 0 30px var(--accent-glow);
-            animation: pulse 1s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
         }
 
         .lives-container {
@@ -291,12 +262,6 @@
                 <p class="text-lg mb-2" style="color: var(--muted);">Final Score</p>
                 <p id="finalScore" class="font-display text-5xl md:text-6xl font-black mb-8 glow-text" style="color: var(--accent);">0</p>
                 <button id="restartBtn" class="btn-game text-lg">PLAY AGAIN</button>
-                
-                <!-- Countdown Overlay -->
-                <div id="countdownOverlay" class="countdown-overlay hidden">
-                    <p class="text-sm mb-2" style="color: var(--muted);">Restart in</p>
-                    <div id="countdownNumber" class="countdown-number">3</div>
-                </div>
             </div>
         </div>
 
@@ -429,8 +394,7 @@
             baseMeteorSpeed: 3,
             comboTimeout: 2000,
             maxLives: 3,
-            difficultyInterval: 10000,
-            restartDelay: 3000
+            difficultyInterval: 10000
         };
 
         // Game State
@@ -461,8 +425,6 @@
         // DOM Elements
         const startScreen = document.getElementById('startScreen');
         const gameOverScreen = document.getElementById('gameOverScreen');
-        const countdownOverlay = document.getElementById('countdownOverlay');
-        const countdownNumber = document.getElementById('countdownNumber');
         const startBtn = document.getElementById('startBtn');
         const restartBtn = document.getElementById('restartBtn');
         const scoreDisplay = document.getElementById('scoreDisplay');
@@ -656,6 +618,21 @@
             }
         }
 
+        // Cleanup function - stoppt alle aktiven Timer
+        function cleanupGame() {
+            // Alle Timeouts und Intervals stoppen
+            const highestTimeoutId = setTimeout(() => {});
+            for (let i = 0; i < highestTimeoutId; i++) {
+                clearTimeout(i);
+                clearInterval(i);
+            }
+            
+            // Alle Objekte entfernen
+            stars = [];
+            meteors = [];
+            particles = [];
+        }
+
         // Spawn functions
         function spawnStar() {
             if (!gameState.isPlaying) return;
@@ -808,7 +785,13 @@
 
         // Start game
         function startGame() {
+            // Verhindert Doppelstarts
+            if (gameState.isPlaying) return;
+            
             initAudio();
+            
+            // Alles sauber machen
+            cleanupGame();
             
             gameState = {
                 isPlaying: true,
@@ -821,13 +804,8 @@
                 mouseY: canvas.height / 2
             };
             
-            stars = [];
-            meteors = [];
-            particles = [];
-            
             startScreen.classList.add('hidden');
             gameOverScreen.classList.add('hidden');
-            countdownOverlay.classList.add('hidden');
             
             renderLives();
             updateDisplays();
@@ -852,22 +830,13 @@
             finalScoreEl.textContent = gameState.score;
             gameOverScreen.classList.remove('hidden');
             
-            restartBtn.disabled = true;
-            countdownOverlay.classList.remove('hidden');
+            // Sofort alle alten Objekte entfernen
+            stars = [];
+            meteors = [];
+            particles = [];
             
-            let countdown = 3;
-            countdownNumber.textContent = countdown;
-            
-            const countdownInterval = setInterval(() => {
-                countdown--;
-                countdownNumber.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    countdownOverlay.classList.add('hidden');
-                    restartBtn.disabled = false;
-                }
-            }, 1000);
+            // Restart-Button sofort aktiv
+            restartBtn.disabled = false;
             
             updateDisplays();
         }
