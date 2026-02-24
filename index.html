@@ -5,11 +5,340 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Sprinter</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* ==================== TAILWIND-STYLES (LOKAL) ==================== */
+        *, ::before, ::after {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #e5e7eb;
+        }
+        
+        html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -moz-tab-size: 4;
+            tab-size: 4;
+            font-family: 'Segoe UI', 'Arial', system-ui, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            line-height: inherit;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-size: inherit;
+            font-weight: inherit;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+        
+        button, input, optgroup, select, textarea {
+            font-family: inherit;
+            font-feature-settings: inherit;
+            font-variation-settings: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0;
+        }
+        
+        button, select {
+            text-transform: none;
+        }
+        
+        button, [type='button'], [type='reset'], [type='submit'] {
+            -webkit-appearance: button;
+            background-color: transparent;
+            background-image: none;
+        }
+        
+        /* ==================== TAILWIDTH UTILITIES ==================== */
+        .container {
+            width: 100%;
+        }
+        
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .container {
+                max-width: 1536px;
+            }
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .absolute {
+            position: absolute;
+        }
+        
+        .relative {
+            position: relative;
+        }
+        
+        .inset-0 {
+            inset: 0;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .grid {
+            display: grid;
+        }
+        
+        .h-screen {
+            height: 100vh;
+        }
+        
+        .min-h-screen {
+            min-height: 100vh;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-start {
+            align-items: flex-start;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        
+        .gap-3 {
+            gap: 0.75rem;
+        }
+        
+        .gap-4 {
+            gap: 1rem;
+        }
+        
+        .gap-6 {
+            gap: 1.5rem;
+        }
+        
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        
+        .p-4 {
+            padding: 1rem;
+        }
+        
+        .p-6 {
+            padding: 1.5rem;
+        }
+        
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .pt-8 {
+            padding-top: 2rem;
+        }
+        
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+        
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+        
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+        
+        .mt-8 {
+            margin-top: 2rem;
+        }
+        
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-left {
+            text-align: left;
+        }
+        
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+        
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+        
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+        
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+        
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+        
+        .text-4xl {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+        }
+        
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        
+        .text-6xl {
+            font-size: 3.75rem;
+            line-height: 1;
+        }
+        
+        .font-medium {
+            font-weight: 500;
+        }
+        
+        .font-bold {
+            font-weight: 700;
+        }
+        
+        .font-black {
+            font-weight: 900;
+        }
+        
+        .uppercase {
+            text-transform: uppercase;
+        }
+        
+        .tracking-wider {
+            letter-spacing: 0.05em;
+        }
+        
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        
+        .rounded-xl {
+            border-radius: 0.75rem;
+        }
+        
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+        
+        .flex-shrink-0 {
+            flex-shrink: 0;
+        }
+        
+        .max-w-4xl {
+            max-width: 56rem;
+        }
+        
+        .max-w-6xl {
+            max-width: 72rem;
+        }
+        
+        /* ==================== CUSTOM STYLES ==================== */
         :root {
             --bg: #0a0a1a;
             --bg-secondary: #12122a;
@@ -30,7 +359,7 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Segoe UI', 'Arial', system-ui, -apple-system, sans-serif;
             background: var(--bg);
             color: var(--fg);
             min-height: 100vh;
@@ -38,7 +367,9 @@
         }
 
         .font-display {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Arial Black', 'Helvetica Bold', 'Segoe UI Black', sans-serif;
+            font-weight: 900;
+            letter-spacing: 0.02em;
         }
 
         .game-container {
@@ -67,8 +398,8 @@
         .btn-game {
             background: linear-gradient(135deg, var(--accent) 0%, #ffaa00 100%);
             color: var(--bg);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+            font-family: 'Arial Black', 'Helvetica Bold', 'Segoe UI Black', sans-serif;
+            font-weight: 900;
             padding: 16px 40px;
             border: none;
             border-radius: 12px;
@@ -199,6 +530,26 @@
             width: 20px;
             height: 20px;
             fill: var(--fg);
+        }
+
+        /* Mobile Optimierungen */
+        @media (max-width: 640px) {
+            .text-6xl {
+                font-size: 2.5rem;
+            }
+            
+            .grid-cols-3 {
+                gap: 0.5rem;
+            }
+            
+            .stat-card {
+                padding: 12px 16px;
+            }
+            
+            .btn-game {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -860,6 +1211,12 @@
             gameState.mouseY = (touch.clientY - canvasRect.top) * scaleY;
         }, { passive: false });
 
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            // Kleines haptisches Feedback (optional)
+            if (navigator.vibrate) navigator.vibrate(10);
+        });
+
         startBtn.addEventListener('click', startGame);
         restartBtn.addEventListener('click', startGame);
         
@@ -867,7 +1224,18 @@
             soundEnabled = !soundEnabled;
             soundOnIcon.style.display = soundEnabled ? 'block' : 'none';
             soundOffIcon.style.display = soundEnabled ? 'none' : 'block';
+            
+            // Sound-Einstellung lokal speichern (optional, aber anonym)
+            localStorage.setItem('soundEnabled', soundEnabled);
         });
+
+        // Sound-Einstellung laden
+        const savedSound = localStorage.getItem('soundEnabled');
+        if (savedSound !== null) {
+            soundEnabled = savedSound === 'true';
+            soundOnIcon.style.display = soundEnabled ? 'block' : 'none';
+            soundOffIcon.style.display = soundEnabled ? 'none' : 'block';
+        }
 
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'Enter') {
